@@ -8,13 +8,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-export default function Modal({
+export const Modal = ({
   title,
   description,
   isOpen,
   onClose = () => null,
   children,
-}) {
+}) => {
   const onChange = (open) => {
     if (!open) {
       onClose();
@@ -32,4 +32,4 @@ export default function Modal({
       </DialogContent>
     </Dialog>
   );
-}
+};
