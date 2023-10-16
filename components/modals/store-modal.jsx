@@ -55,7 +55,7 @@ export const StoreModal = () => {
       title="Create Store"
       description="Add a new store to manage products and categories."
       isOpen={storeModal.isOpen}
-      isClose={storeModal.onClose}
+      onClose={storeModal.onClose}
     >
       <div>
         <div className="space-y-4 py-2 pb-4">
