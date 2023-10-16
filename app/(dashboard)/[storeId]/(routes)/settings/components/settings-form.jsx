@@ -3,7 +3,7 @@
 import { useState } from "react";
 import * as z from "zod";
 import { useParams, useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 
@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
+import { AlertModal } from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/api-alert";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Required" }),
@@ -41,8 +43,9 @@ export const SettingsForm = ({ initialData }) => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      console.log("params:storeid::::", params.storeId);
+
       await axios.patch(`/api/stores/${params.storeId}`, data);
+
       router.refresh();
       toast.success("Store updated.");
     } catch (error) {
@@ -52,8 +55,29 @@ export const SettingsForm = ({ initialData }) => {
     }
   };
 
+  const onDelete = async () => {
+    try {
+      setLoading(true);
+      await axios.delete(`/api/stores/${params.storeId}`);
+      router.refresh();
+      router.push("/");
+      toast.success("Store deleted.");
+    } catch (error) {
+      toast.error("Make sure you removed all products and categories first.");
+    } finally {
+      setLoading(false);
+      setOpen(false);
+    }
+  };
+
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
         <Button
@@ -95,6 +119,12 @@ export const SettingsForm = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description="test-desc"
+        variant="public"
+      />
     </>
   );
 };

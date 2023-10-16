@@ -39,7 +39,7 @@ export async function PATCH(req, { params }) {
   }
 }
 
-export async function DELETE(req, { param }) {
+export async function DELETE(req, { params }) {
   try {
     const { userId } = auth();
 
@@ -47,13 +47,13 @@ export async function DELETE(req, { param }) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!param.storeId) {
+    if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
     }
 
     const store = await prismadb.store.deleteMany({
       where: {
-        id: param.storeId,
+        id: params.storeId,
         userId: userId,
       },
     });
