@@ -1,4 +1,5 @@
 import prismadb from "@/lib/prismadb";
+
 export default async function DashboardPage({ children, params }) {
   const { storeId } = params;
 

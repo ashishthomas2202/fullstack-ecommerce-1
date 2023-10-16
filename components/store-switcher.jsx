@@ -27,7 +27,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export default function StoreSwitcher({ className, items = [] }) {
+export const StoreSwitcher = ({ className, items = [] }) => {
   const storeModal = useStoreModal();
   const params = useParams();
   const router = useRouter();
@@ -107,4 +107,4 @@ export default function StoreSwitcher({ className, items = [] }) {
       </PopoverContent>
     </Popover>
   );
-}
+};

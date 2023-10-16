@@ -1,10 +1,11 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
-export default function MainNav({ className, ...props }) {
+import { cn } from "@/lib/utils";
+
+export const MainNav = ({ className, ...props }) => {
   const pathname = usePathname();
   const params = useParams();
 
@@ -34,4 +35,4 @@ export default function MainNav({ className, ...props }) {
       ))}
     </nav>
   );
-}
+};
