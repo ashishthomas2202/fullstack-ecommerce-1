@@ -43,6 +43,10 @@ export default function StoreSwitcher({ className, items = [] }) {
 
   const [open, setOpen] = useState(false);
 
+  const onStoreSelect = (store) => {
+    setOpen(false);
+    router.push(`/${store.value}`);
+  };
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -71,7 +75,7 @@ export default function StoreSwitcher({ className, items = [] }) {
                   onSelect={() => onStoreSelect(store)}
                   className="text-sm"
                 >
-                  <StoreIcon className="mr-2 h-4 w-4" /> {store.label}
+                  <StoreIcon className="mr-2 h-4 w-4" />
                   {store.label}
                   <Check
                     className={cn(
